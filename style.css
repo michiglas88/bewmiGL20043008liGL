@@ -1,0 +1,172 @@
+/* --- 1. BASIS & VARIABLEN --- */
+:root {
+    --primary-font: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --bg-beige: #f5f5dc;
+    --accent-orange: rgba(255, 165, 0, 0.8);
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body, html {
+    width: 100%;
+    overflow-x: hidden; /* Verhindert seitliches Wackeln der gesamten Seite */
+    font-family: var(--primary-font);
+    line-height: 1.6;
+    color: #333;
+    background-color: white;
+}
+
+/* --- 2. HEADER & BILDER --- */
+header {
+    width: 100%;
+    background: white;
+}
+
+.hero-img {
+    width: 100vw;
+    height: 250px; /* Mobile Höhe */
+    object-fit: cover;
+    display: block;
+}
+
+.triple-head {
+    display: flex;
+    gap: 5px;
+    background: white;
+}
+
+.triple-head img {
+    width: 33.33%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* --- 3. NAVIGATION & FOOTER --- */
+nav, footer {
+    background-color: var(--bg-beige) !important;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column; /* Mobile: untereinander */
+    list-style: none;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    text-shadow: 2px 2px 10px var(--accent-orange);
+}
+
+/* --- 4. CONTENT BEREICH --- */
+main {
+    padding: 40px 20px;
+    background: white;
+    min-height: 400px;
+}
+
+h1 { font-weight: 300; font-size: 2rem; margin-bottom: 25px; }
+
+/* --- 5. PORTFOLIO GALERIE (DIE SWIPE-LOGIK) --- */
+
+.gallery {
+    display: flex !important;       /* Erzwingt Flex-Layout nebeneinander */
+    flex-wrap: nowrap !important;   /* VERHINDERT Umbruch untereinander */
+    overflow-x: auto !important;    /* Aktiviert horizontales Scrollen */
+    scroll-snap-type: x mandatory;  /* Karten rasten magnetisch ein */
+    -webkit-overflow-scrolling: touch; /* Butterweiches Wischen auf iOS */
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Versteckt den Scrollbalken am Handy für saubere Optik */
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.card {
+    flex: 0 0 85%;                 /* WICHTIG: Verhindert Schrumpfen, fixiert Breite auf 85% des Screens */
+    max-width: 85vw;
+    scroll-snap-align: center;      /* Karte zentriert sich beim Wischen */
+    
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* --- 6. DESKTOP OPTIMIERUNG (PC / TABLET) --- */
+@media screen and (min-width: 769px) {
+    
+    header { position: sticky; top: 0; z-index: 100; }
+    
+    .hero-img { height: 400px; }
+    .triple-head img { height: 350px; }
+
+    .nav-links {
+        flex-direction: row; /* Am PC wieder nebeneinander */
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    .nav-links a {
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    main {
+        padding: 60px 15%; /* Viel Weißraum am PC für den "edlen" Look */
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Galerie am PC wieder als Gitter (kein Swipe) */
+    .gallery {
+        display: grid !important; 
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        flex-wrap: wrap !important; 
+        overflow-x: visible !important;
+        gap: 30px;
+        padding: 20px 0;
+    }
+
+    .card {
+        flex: none; /* Hebt die Mobile-Breite auf */
+        max-width: 100%;
+        min-width: 0;
+    }
+}
