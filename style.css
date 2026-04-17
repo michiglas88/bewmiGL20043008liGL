@@ -90,17 +90,20 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     display: flex !important;           /* Erzwingt Nebeneinander-Look */
     flex-direction: row !important;
     flex-wrap: nowrap !important;       /* Verbietet Umbruch nach unten */
-    overflow-x: auto !important;        /* Aktiviert horizontales Wischen */
+    overflow-x: scroll !important;        /* "scroll" erzwingt die Scroll-Eigenschaft stärker als "auto" */
     scroll-snap-type: x mandatory;      /* Magnet-Effekt beim Wischen */
+    scroll-behavior: smooth;            /* Macht das Gleiten sanfter */
     -webkit-overflow-scrolling: touch;  /* Flüssiges iOS-Scrollen */
     gap: 20px;
     padding: 20px 5% !important;
     width: 100% !important;
 }
 
-/* Scrollbalken am iPhone verstecken */
+/* Versteckt den Scrollbalken, damit es wie eine App wirkt */
 .gallery::-webkit-scrollbar {
     display: none;
+    width: 0;
+    height: 0;
 }
 
 .card {
