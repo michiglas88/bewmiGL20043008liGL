@@ -1,5 +1,3 @@
-body { background-color: hotpink !important; }
-
 /* --- 1. BASIS & VARIABLEN --- */
 :root {
     --primary-font: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -90,13 +88,14 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 /* --- 5. PORTFOLIO GALERIE (SWIPE-LOGIK FÜR MOBILE) --- */
 .gallery {
     display: flex !important;           /* Erzwingt Nebeneinander-Look */
+    flex-direction: row !important;
     flex-wrap: nowrap !important;       /* Verbietet Umbruch nach unten */
     overflow-x: auto !important;        /* Aktiviert horizontales Wischen */
     scroll-snap-type: x mandatory;      /* Magnet-Effekt beim Wischen */
     -webkit-overflow-scrolling: touch;  /* Flüssiges iOS-Scrollen */
     gap: 20px;
-    padding: 20px 0;
-    width: 100%;
+    padding: 20px 5% !important;
+    width: 100% !important;
 }
 
 /* Scrollbalken am iPhone verstecken */
@@ -105,28 +104,40 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 }
 
 .card {
-    flex: 0 0 82% !important;           /* Fixiert Kartenbreite auf 82% des Screens */
-    max-width: 82vw;
+    flex: 0 0 85% !important;           /* Fixiert Kartenbreite auf 82% des Screens */
+    max-width: 85% !important;
     scroll-snap-align: center;          /* Karte rastet mittig ein */
     background: #fff;
     border: 1px solid #eee;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 .card img {
-    width: 100%;
-    height: 200px;                      /* Bildhöhe am Handy */
+    width: 100% !important;
+    height: 230px !important;                      /* Bildhöhe am Handy */
     object-fit: cover;
     display: block;
 }
 
 .card-body {
-    padding: 15px;
+    padding: 20px;
     background: white;
+}
+
+.card-body h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #111;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
 }
 
 /* --- 6. DESKTOP OPTIMIERUNG (PC / GROSSE BILDSCHIRME) --- */
@@ -158,14 +169,17 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     /* Galerie am PC wieder als Raster (Gitter) */
     .gallery {
         display: grid !important; 
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-auto-flow: row;
         flex-wrap: wrap !important; 
         overflow-x: visible !important;
         gap: 30px;
+        padding: 40px 0 !important;
     }
 
     .card {
         flex: none !important;          /* Hebt Swipe-Breite auf */
+        min-width: 0 !important;
         max-width: 100%;
     }
 }
