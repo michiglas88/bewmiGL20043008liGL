@@ -92,29 +92,16 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     flex-wrap: nowrap !important;       /* Verbietet Umbruch nach unten */
     overflow-x: scroll !important;        /* "scroll" erzwingt die Scroll-Eigenschaft stärker als "auto" */
     scroll-snap-type: x mandatory;      /* Magnet-Effekt beim Wischen */
-    scroll-behavior: smooth;            /* Macht das Gleiten sanfter */
     -webkit-overflow-scrolling: touch;  /* Flüssiges iOS-Scrollen */
-    position: relative;                 /* ergänz für Kulisse */
-    gap: 0;                             /* geändert für Kulisse */
-    padding: 20px 0% !important;
+    /* Maske */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    /* Ende Maske */
+
+    gap: 30px;
+    padding: 20px 10% !important;
     width: 100% !important;
 }
-
-/* Eingefügt für Bühnen Funktion */
-.gallery::before,
-.gallery::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 10%;
-    background: white;
-    z-index: 10;
-    pointer-events: none;
-} 
-
-.gallery::before { left: 0; }
-.gallery::after { right: 0; }
 
 /* Versteckt den Scrollbalken, damit es wie eine App wirkt */
 .gallery::-webkit-scrollbar {
@@ -125,8 +112,8 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 
 .card {
     flex: 0 0 85% !important;           /* Fixiert Kartenbreite auf 82% des Screens */
-    max-width: 85% !important;
-    margin: 0 10%;
+    min-width: 80vw !important;         /* ergänzt für Maske */
+    max-width: 500px !important;
     scroll-snap-align: center;          /* Karte rastet mittig ein */
     background: #fff;
     border: 1px solid #eee;
@@ -135,7 +122,6 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    z-index: 1;
 }
 
 .card img {
