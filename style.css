@@ -180,6 +180,6 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     .card {
         flex: none !important;          /* Hebt Swipe-Breite auf */
         min-width: 0 !important;
-        max-width: 100%;
+        max-width: 100% !important;
     }
 }
