@@ -13,7 +13,7 @@
 
 body, html {
     width: 100%;
-    overflow-x: hidden; /* Verhindert seitliches Wackeln der gesamten Seite */
+    overflow-x: hidden; /* Verhindert seitliches Wackeln der Seite */
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
@@ -26,13 +26,15 @@ header {
     background: white;
 }
 
+/* Das große Banner-Bild */
 .hero-img {
     width: 100vw;
-    height: 250px; /* Mobile Höhe */
+    height: 250px; 
     object-fit: cover;
     display: block;
 }
 
+/* Die 3 Bilder nebeneinander */
 .triple-head {
     display: flex;
     gap: 5px;
@@ -41,11 +43,11 @@ header {
 
 .triple-head img {
     width: 33.33%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
 }
 
-/* --- 3. NAVIGATION & FOOTER --- */
+/* --- 3. NAVIGATION & FOOTER (Das beige Band) --- */
 nav, footer {
     background-color: var(--bg-beige) !important;
     width: 100%;
@@ -54,7 +56,7 @@ nav, footer {
 
 .nav-links {
     display: flex;
-    flex-direction: column; /* Mobile: untereinander */
+    flex-direction: column; /* Mobile: Links untereinander */
     list-style: none;
     align-items: center;
     width: 100%;
@@ -81,66 +83,63 @@ main {
     min-height: 400px;
 }
 
-h1 { font-weight: 300; font-size: 2rem; margin-bottom: 25px; }
+h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 
-/* --- 5. PORTFOLIO GALERIE (DIE SWIPE-LOGIK) --- */
-
+/* --- 5. PORTFOLIO GALERIE (SWIPE-LOGIK FÜR MOBILE) --- */
 .gallery {
-    display: flex !important;       /* Erzwingt Flex-Layout nebeneinander */
-    flex-wrap: nowrap !important;   /* VERHINDERT Umbruch untereinander */
-    overflow-x: auto !important;    /* Aktiviert horizontales Scrollen */
-    scroll-snap-type: x mandatory;  /* Karten rasten magnetisch ein */
-    -webkit-overflow-scrolling: touch; /* Butterweiches Wischen auf iOS */
+    display: flex !important;           /* Erzwingt Nebeneinander-Look */
+    flex-wrap: nowrap !important;       /* Verbietet Umbruch nach unten */
+    overflow-x: auto !important;        /* Aktiviert horizontales Wischen */
+    scroll-snap-type: x mandatory;      /* Magnet-Effekt beim Wischen */
+    -webkit-overflow-scrolling: touch;  /* Flüssiges iOS-Scrollen */
     gap: 20px;
-    padding: 20px;
+    padding: 20px 0;
     width: 100%;
 }
 
-/* Versteckt den Scrollbalken am Handy für saubere Optik */
+/* Scrollbalken am iPhone verstecken */
 .gallery::-webkit-scrollbar {
     display: none;
 }
 
 .card {
-    flex: 0 0 85%;                 /* WICHTIG: Verhindert Schrumpfen, fixiert Breite auf 85% des Screens */
-    max-width: 85vw;
-    scroll-snap-align: center;      /* Karte zentriert sich beim Wischen */
-    
+    flex: 0 0 82% !important;           /* Fixiert Kartenbreite auf 82% des Screens */
+    max-width: 82vw;
+    scroll-snap-align: center;          /* Karte rastet mittig ein */
     background: #fff;
     border: 1px solid #eee;
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .card img {
     width: 100%;
-    height: 220px;
+    height: 200px;                      /* Bildhöhe am Handy */
     object-fit: cover;
-    border-bottom: 1px solid #f0f0f0;
+    display: block;
 }
 
 .card-body {
-    padding: 20px;
-    flex-grow: 1;
+    padding: 15px;
+    background: white;
 }
 
-/* --- 6. DESKTOP OPTIMIERUNG (PC / TABLET) --- */
+/* --- 6. DESKTOP OPTIMIERUNG (PC / GROSSE BILDSCHIRME) --- */
 @media screen and (min-width: 769px) {
     
     header { position: sticky; top: 0; z-index: 100; }
     
     .hero-img { height: 400px; }
-    .triple-head img { height: 350px; }
+    .triple-head img { height: 300px; }
 
     .nav-links {
-        flex-direction: row; /* Am PC wieder nebeneinander */
+        flex-direction: row;            /* Links nebeneinander am PC */
         justify-content: space-between;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
-        padding: 0 40px;
     }
 
     .nav-links a {
@@ -149,24 +148,22 @@ h1 { font-weight: 300; font-size: 2rem; margin-bottom: 25px; }
     }
 
     main {
-        padding: 60px 15%; /* Viel Weißraum am PC für den "edlen" Look */
+        padding: 60px 18%;              /* Viel Weißraum am PC (Edel-Look) */
         max-width: 1400px;
         margin: 0 auto;
     }
 
-    /* Galerie am PC wieder als Gitter (kein Swipe) */
+    /* Galerie am PC wieder als Raster (Gitter) */
     .gallery {
         display: grid !important; 
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         flex-wrap: wrap !important; 
         overflow-x: visible !important;
         gap: 30px;
-        padding: 20px 0;
     }
 
     .card {
-        flex: none; /* Hebt die Mobile-Breite auf */
+        flex: none !important;          /* Hebt Swipe-Breite auf */
         max-width: 100%;
-        min-width: 0;
     }
 }
