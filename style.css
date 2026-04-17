@@ -60,6 +60,7 @@ footer {
 .footer-container {
     padding: 0 20px;
     width: 100%;
+    text-align: center;
 }
 
 .nav-links, .footer-links {
@@ -67,7 +68,9 @@ footer {
     flex-direction: column; /* Mobile: untereinander */
     list-style: none;
     align-items: center;
+    padding: 0;
     width: 100%;
+    margin: 0;
 }
 
 .nav-links a, .footer-links a {
@@ -89,6 +92,7 @@ footer {
     margin-top: 20px;
     font-size: 0.85rem;
     color: #666;
+    width: 100%;
 }
 
 /* --- 4. CONTENT BEREICH --- */
