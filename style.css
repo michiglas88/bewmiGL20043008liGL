@@ -13,7 +13,7 @@
 
 body, html {
     width: 100%;
-    overflow-x: hidden; /* Verhindert seitliches Wackeln der Seite */
+    overflow-x: hidden;
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
@@ -26,7 +26,6 @@ header {
     background: white;
 }
 
-/* Das große Banner-Bild */
 .hero-img {
     width: 100vw;
     height: 250px; 
@@ -34,7 +33,6 @@ header {
     display: block;
 }
 
-/* Die 3 Bilder nebeneinander */
 .triple-head {
     display: flex;
     gap: 5px;
@@ -51,18 +49,28 @@ header {
 nav, footer {
     background-color: var(--bg-beige) !important;
     width: 100%;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
-.nav-links {
+footer {
+    margin-top: 50px;
+    border-top: 1px solid #e0e0d0;
+}
+
+.footer-container {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.nav-links, .footer-links {
     display: flex;
-    flex-direction: column; /* Mobile: Links untereinander */
+    flex-direction: column; /* Mobile: untereinander */
     list-style: none;
     align-items: center;
     width: 100%;
 }
 
-.nav-links a {
+.nav-links a, .footer-links a {
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -72,8 +80,15 @@ nav, footer {
     transition: 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover, .footer-links a:hover {
     text-shadow: 2px 2px 10px var(--accent-orange);
+}
+
+.footer-copy {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #666;
 }
 
 /* --- 4. CONTENT BEREICH --- */
@@ -87,23 +102,21 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 
 /* --- 5. PORTFOLIO GALERIE (SWIPE-LOGIK FÜR MOBILE) --- */
 .gallery {
-    display: flex !important;           /* Erzwingt Nebeneinander-Look */
+    display: flex !important;
     flex-direction: row !important;
-    flex-wrap: nowrap !important;       /* Verbietet Umbruch nach unten */
-    overflow-x: scroll !important;        /* "scroll" erzwingt die Scroll-Eigenschaft stärker als "auto" */
-    scroll-snap-type: x mandatory;      /* Magnet-Effekt beim Wischen */
-    -webkit-overflow-scrolling: touch;  /* Flüssiges iOS-Scrollen */
-    /* Maske */
+    flex-wrap: nowrap !important;
+    overflow-x: scroll !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    /* Ende Maske */
 
     gap: 30px;
     padding: 20px 10% !important;
     width: 100% !important;
 }
 
-/* Versteckt den Scrollbalken, damit es wie eine App wirkt */
 .gallery::-webkit-scrollbar {
     display: none;
     width: 0;
@@ -111,10 +124,10 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 }
 
 .card {
-    flex: 0 0 85% !important;           /* Fixiert Kartenbreite auf 82% des Screens */
-    min-width: 80vw !important;         /* ergänzt für Maske */
+    flex: 0 0 85% !important;
+    min-width: 80vw !important;
     max-width: 500px !important;
-    scroll-snap-align: center;          /* Karte rastet mittig ein */
+    scroll-snap-align: center;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 15px;
@@ -126,7 +139,7 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 
 .card img {
     width: 100% !important;
-    height: 230px !important;                      /* Bildhöhe am Handy */
+    height: 230px !important;
     object-fit: cover;
     display: block;
 }
@@ -156,25 +169,32 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
     .hero-img { height: 400px; }
     .triple-head img { height: 300px; }
 
-    .nav-links {
+    .nav-links, .footer-links {
         flex-direction: row;            /* Links nebeneinander am PC */
         justify-content: space-between;
         max-width: 1000px;
         margin: 0 auto;
     }
 
-    .nav-links a {
+    .footer-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links a, .footer-links a {
         width: auto;
         padding: 10px 20px;
     }
 
     main {
-        padding: 60px 18%;              /* Viel Weißraum am PC (Edel-Look) */
+        padding: 60px 18%;
         max-width: 1400px;
         margin: 0 auto;
     }
 
-    /* Galerie am PC wieder als Raster (Gitter) */
     .gallery {
         display: grid !important; 
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -183,10 +203,12 @@ h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
         overflow-x: visible !important;
         gap: 30px;
         padding: 40px 0 !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
     }
 
     .card {
-        flex: none !important;          /* Hebt Swipe-Breite auf */
+        flex: none !important;
         min-width: 0 !important;
         max-width: 100% !important;
     }
