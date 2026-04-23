@@ -20,6 +20,13 @@ body, html {
     background-color: white;
 }
 
+.text-lebenslauf {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    word-break: break-word;
+}
+
 /* --- 2. HEADER & BILDER --- */
 header {
     width: 100%;
@@ -111,6 +118,8 @@ main {
 }
 
 h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
+
+h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
 
 /* --- 5. PORTFOLIO GALERIE (SWIPE-LOGIK FÜR MOBILE) --- */
 .gallery {
