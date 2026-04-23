@@ -13,13 +13,15 @@
 
 html {
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
-    /* DER ENTSCHEIDENDE FIX: Grid statt Flexbox */
     display: grid;
-    grid-template-rows: auto 1fr auto; /* Oben/Unten passen sich an, Mitte füllt alles */
+    grid-template-rows: auto 1fr auto; 
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Verhindert das seitliche Ausbrechen der Seite */
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
@@ -57,44 +59,48 @@ header {
     display: block;
 }
 
-/* NAVIGATION */
+/* --- 3. NAVIGATION (FIX FÜR MOBILE ZOOM) --- */
 nav {
     background-color: var(--bg-beige) !important;
     width: 100%;
+    max-width: 100vw; /* Zwingt die Nav auf Bildschirmbreite */
+    overflow: hidden; 
     padding: 10px 0;
 }
 
 .nav-links {
     display: flex;
     flex-direction: row; 
-    overflow-x: auto;
+    overflow-x: auto; /* Aktiviert das Wischen am Handy wieder */
+    -webkit-overflow-scrolling: touch;
     list-style: none;
     padding: 5px 15px;
-    gap: 15px;
+    gap: 20px;
+    width: 100%;
 }
 
-.nav-links::-webkit-scrollbar { display: none; }
+.nav-links::-webkit-scrollbar { display: none; } /* Versteckt Scrollbar-Grafik */
 
 .nav-links a {
     text-decoration: none;
     color: black !important;
     font-weight: bold;
     font-size: 0.9rem;
-    white-space: nowrap;
+    white-space: nowrap; /* Verhindert Zeilenumbruch der Links */
 }
 
-/* --- 3. MAIN BEREICH (STICKY ANKER FIX) --- */
+/* --- 4. MAIN & ANKER-FIX --- */
 main {
     padding: 40px 20px;
     background: white;
-    /* Da Grid 1fr nutzt, brauchen wir hier kein min-height mehr */
 }
 
+/* Mobile Anker-Sprungpunkt */
 h1[id], h2[id], p[id], div[id] {
-    scroll-margin-top: 320px; 
+    scroll-margin-top: 135px; 
 }
 
-/* --- 4. CARDS & PORTFOLIO --- */
+/* --- 5. CARDS & PORTFOLIO --- */
 .gallery {
     display: flex;
     overflow-x: auto;
@@ -119,17 +125,14 @@ h1[id], h2[id], p[id], div[id] {
     background-color: #fcfcfc;
 }
 
-.card-body {
-    padding: 20px 25px; 
-}
+.card-body { padding: 20px 25px; }
 
-/* --- 5. FOOTER --- */
+/* --- 6. FOOTER --- */
 footer {
     background-color: var(--bg-beige) !important;
     padding: 30px 20px;
     border-top: 1px solid #e0e0d0;
     text-align: center;
-    width: 100%;
 }
 
 .footer-links {
@@ -137,7 +140,6 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 0;
 }
 
 .footer-links a {
@@ -146,14 +148,9 @@ footer {
     font-weight: bold;
 }
 
-.footer-copy {
-    margin-top: 20px;
-    font-size: 0.85rem;
-    color: #666;
-}
-
-/* --- 6. DESKTOP OPTIMIERUNG --- */
+/* --- 7. DESKTOP OPTIMIERUNG --- */
 @media screen and (min-width: 769px) {
+    /* Desktop Anker-Sprungpunkt */
     h1[id], h2[id], p[id], div[id] {
         scroll-margin-top: 480px; 
     }
@@ -167,7 +164,10 @@ footer {
         margin: 0 auto;
     }
 
-    .nav-links { justify-content: center; }
+    .nav-links { 
+        justify-content: center; 
+        overflow: visible; 
+    }
 
     .gallery {
         display: grid !important;
@@ -177,7 +177,6 @@ footer {
     .card { flex: none; }
 
     footer { padding: 20px 0; }
-    
     .footer-links {
         flex-direction: row;
         justify-content: center;
