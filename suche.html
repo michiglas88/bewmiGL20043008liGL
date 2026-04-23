@@ -1,18 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bewerbung - Vorstellung</title>
+    <link rel="stylesheet" href="style.css?v=201">
+</head>
+<body>
+
 <header>
-    <div class="triple-head">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>Bewerbung - Cover</title>
-        <link rel="stylesheet" href="css/style.css">
-        <img src="bild1.jpg" alt="">
-        <img src="bild2.jpg" alt="">
-        <img src="bild3.jpg" alt="">
-    </div>
+    <img src="images/suche.png" alt="Titelbild" class="hero-img">
+    <nav>
+        <div class="nav-links">
+            <a href="#suche">Ich bin auf der Suche …</a>
+            <a href="#gehalt">Gehaltsvorstellung</a>
+        </div>
+    </nav>
 </header>
+
 <main>
-    <h1>Vorstellung meiner Person</h1>
-    <p>Sehr geehrte Damen und Herren, hier folgt Ihr individueller Anschreiben-Text...</p>
+    <h1 id="suche">Ich bin auf der Suche …</h1>
+    <p>…nach einer abwechslungsreichen und vielseitigen Tätigkeit, die mich emotional anspricht.</p> 
+    <p>…nach einer Anstellung, bei der ich die Möglichkeit habe eigenverantwortlich zu arbeiten.</p> 
+    <p>…nach der Möglichkeit zur Fortbildung und Weiterentwicklung.</p>
+    <p>…nach einem langfristigen und sicheren Arbeitsplatz mit angemessener Bezahlung und guter Work-Life-Balance.</p>
+    <br>
+    <p>Für mich ist es wichtig, dass es zwischen mir und den Menschen mit den ich zusammenarbeite nicht nur auf fachlicher, sondern auch auf menschlicher Basis passt. Grundsätzlich bin ich auch für Jobs in Deutschland offen. Aber da sich mein Lebensmittelpunkt in Tirol befindet und nicht von dort weg bewegen wird, sind Jobs in Deutschland nur mit Remote oder Hybrid Lösungen möglich.</p>
+    <br>
+    <h1 id="gehalt">Gehaltsvorstellung</h1>
+    <p>Der Wert den ich hier als Gehaltsvorstellung bekannt gebe, ist ein Wert mit dem ich mich wohlfühlen würde. Da ich aber offen für verschiedene Jobs bin und nicht auf einen bestimmten Jobtitel mit einer festen Jobbeschreibung festgelegt bin. Möchte ich Sie bitten diesen Wert als Ausgangspunkt zu sehen über den man reden kann, wenn besprochen wir um welche Aufgaben und Verantwortungen es tatsächlich geht.</p>
+    <p>Ich hoffe sie verstehen was ich damit ausdrücken möchte. Grundsätzlich finde ich sollte die Bezahlung immer dem entsprechen was man leistet und wfür man Verantwortung übernimmt. Sollten Sie Fragen dazu haben, kontaktieren Sie mich geren.</p>
+    <p>Ich hoffe, ich konnte Sie von meinen menschlichen und fachlichen Qualitäten überzeugen. Ich freue mich auf ein baldiges Bewerbungsgespräch, in dem wir uns auf fachlicher und menschlicher Basis kennenlernen.</p>
+    <br>
+    <p>Um die länderspezifischen Unterschiede (12 vs. 14 Gehälter) zu berücksichtigen, wählen Sie bitte das gewünschte Land aus:</p>
+
+    <div class="salary-box">
+        <label class="container">Österreich (14 Gehälter)
+            <input type="radio" name="country" value="at" id="check-at">
+            <span class="checkmark"></span>
+        </label>
+        
+        <label class="container">Deutschland (12 Gehälter)
+            <input type="radio" name="country" value="de" id="check-de">
+            <span class="checkmark"></span>
+        </label>
+
+        <button type="button" class="btn-salary" onclick="showSalary()">Gehalt anzeigen</button>
+    </div>
+
+    <div id="salary-result" class="result-container" style="display: none;">
+        <h2 id="salary-value"></h2>
+        <p id="salary-note" style="font-style: italic; color: #666;"></p>
+    </div>
 </main>
+
 <footer>
-    <div class="nav-links"> </div>
+    <div class="footer-container">
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vorstellung.html">Anschreiben</a></li>
+            <li><a href="lebenslauf.html">Lebenslauf</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="suche.html">Suche & Gehalt</a></li>
+        </ul>
+        <div class="footer-copy">
+            <p>&copy; 2026 – Mediendesign & DTP Automation</p>
+        </div>
+    </div>
 </footer>
+<script>
+function showSalary() {
+    const isAt = document.getElementById('check-at').checked;
+    const isDe = document.getElementById('check-de').checked;
+    const resultDiv = document.getElementById('salary-result');
+    const valueText = document.getElementById('salary-value');
+    const noteText = document.getElementById('salary-note');
+
+    if (!isAt && !isDe) {
+        alert("Bitte wählen Sie ein Land aus.");
+        return;
+    }
+
+    resultDiv.style.display = "block";
+
+    if (isAt) {
+        valueText.innerText = "Gehaltswunsch Österreich: 45.000 € – 47.000 € (Brutto/Jahr)";
+        noteText.innerText = "Basierend auf 14 Monatsgehältern.";
+    } else if (isDe) {
+        valueText.innerText = "Gehaltswunsch Deutschland: 55.000 € – 62.000 € (Brutto/Jahr)";
+        noteText.innerText = "Hinweis: Der höhere Bruttowert ergibt sich aus dem abweichenden Gehaltsmodell in Deutschland (in der Regel 12 Gehälter) sowie den unterschiedlichen Lohnnebenkosten und Lebenshaltungskosten im Vergleich zu Österreich.";
+    }
+}
+</script>
+</body>
+</html>
