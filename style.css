@@ -12,34 +12,24 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
-    width: 100%;
+    /* DER ENTSCHEIDENDE FIX: Grid statt Flexbox */
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Oben/Unten passen sich an, Mitte füllt alles */
+    min-height: 100vh;
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
     background-color: white;
 }
 
-.text-lebenslauf {
-    text-align: justify;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    word-break: break-word;
-}
-
-/* PRÄZISE ANKER-PUNKTE: Wert so eingestellt, dass die ID direkt unter der Nav landet */
-h1[id], h2[id], p[id] {
-    scroll-margin-top: 90px; 
-}
-
-/* --- 2. HEADER & BILDER --- */
+/* --- 2. HEADER & STICKY LOGIK --- */
 header {
     width: 100%;
     background: white;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -53,23 +43,21 @@ header {
     display: block;
 }
 
-/* FIX MOBILE BILDER: flex-shrink verhindert das Rausrutschen */
 .triple-head {
     display: flex;
     width: 100%;
     gap: 2px;
-    background: white;
 }
 
 .triple-head img {
     flex: 1;
-    min-width: 0; /* Verhindert das Verdrängen bei langen Bildern */
+    min-width: 0;
     height: 120px;
     object-fit: cover;
     display: block;
 }
 
-/* --- 3. NAVIGATION --- */
+/* NAVIGATION */
 nav {
     background-color: var(--bg-beige) !important;
     width: 100%;
@@ -81,7 +69,6 @@ nav {
     flex-direction: row; 
     overflow-x: auto;
     list-style: none;
-    align-items: center;
     padding: 5px 15px;
     gap: 15px;
 }
@@ -92,27 +79,24 @@ nav {
     text-decoration: none;
     color: black !important;
     font-weight: bold;
-    padding: 8px 5px;
-    background: transparent; /* Mobile: Kein Hintergrund mehr */
-    border-radius: 0;
-    white-space: nowrap;
     font-size: 0.9rem;
+    white-space: nowrap;
 }
 
-/* --- 4. CONTENT BEREICH --- */
+/* --- 3. MAIN BEREICH (STICKY ANKER FIX) --- */
 main {
     padding: 40px 20px;
     background: white;
-    min-height: 400px;
+    /* Da Grid 1fr nutzt, brauchen wir hier kein min-height mehr */
 }
 
-h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
-h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
+h1[id], h2[id], p[id], div[id] {
+    scroll-margin-top: 320px; 
+}
 
-/* PORTFOLIO CARDS */
+/* --- 4. CARDS & PORTFOLIO --- */
 .gallery {
     display: flex;
-    flex-direction: row;
     overflow-x: auto;
     gap: 30px;
     padding: 20px 0;
@@ -128,41 +112,32 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
 }
 
 .card img {
-    width: 100% !important;
-    height: 230px !important;
-    object-fit: contain !important;
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
     padding: 15px;
     background-color: #fcfcfc;
 }
 
-/* FIX: Abstand für Text in den Cards */
 .card-body {
-    padding: 20px 25px; /* Links/Rechts mehr Abstand */
+    padding: 20px 25px; 
 }
 
-/* --- 5. GEHALT & FOOTER BASIS --- */
-.salary-box {
-    background: #fcfcfc;
-    border: 1px solid #eee;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 20px 0;
-    max-width: 500px;
-}
-
+/* --- 5. FOOTER --- */
 footer {
     background-color: var(--bg-beige) !important;
     padding: 30px 20px;
-    margin-top: 50px;
     border-top: 1px solid #e0e0d0;
-    text-align: center; /* Alles zentriert */
+    text-align: center;
+    width: 100%;
 }
 
 .footer-links {
     list-style: none;
     display: flex;
-    flex-direction: column; /* Mobile untereinander */
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
 }
 
 .footer-links a {
@@ -179,15 +154,17 @@ footer {
 
 /* --- 6. DESKTOP OPTIMIERUNG --- */
 @media screen and (min-width: 769px) {
-    header { top: 0; }
+    h1[id], h2[id], p[id], div[id] {
+        scroll-margin-top: 480px; 
+    }
+
     .hero-img { height: 400px; }
     .triple-head img { height: 250px; }
 
-    /* Breiterer Textbereich, mittig */
     main { 
-        padding: 60px 10%; /* Weniger Seitenabstand = mehr Textbreite */
-        max-width: 1200px; /* Breite erhöht */
-        margin: 0 auto; 
+        padding: 60px 5%; 
+        max-width: 1400px; 
+        margin: 0 auto;
     }
 
     .nav-links { justify-content: center; }
@@ -199,22 +176,11 @@ footer {
 
     .card { flex: none; }
 
-    /* FOOTER ANPASSUNG DESKTOP */
-    footer {
-        padding: 20px 0; /* Schmaler */
-    }
-
+    footer { padding: 20px 0; }
+    
     .footer-links {
-        flex-direction: row; /* Links nebeneinander */
+        flex-direction: row;
         justify-content: center;
-        gap: 40px;
-    }
-
-    .footer-copy {
-        margin-top: 15px;
-        border-top: 1px solid rgba(0,0,0,0.05);
-        padding-top: 10px;
-        display: inline-block;
-        width: auto;
+        gap: 50px;
     }
 }
