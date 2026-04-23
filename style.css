@@ -96,13 +96,12 @@ main {
 }
 
 /* Mobile Anker-Sprungpunkt */
-h1[id]::before, h2[id]::before, p[id]::before, div[id]::before {
-    content: "";
-    display: block;
-    height: 140px;
-    margin-top: -140px;
-    visibility: hidden;
-    pointer-events: none;
+:target {
+    scroll-margin-top: 160px !important;
+}
+
+[id] {
+    scroll-margin-top: 160px !important;
 }
 
 /* --- 5. CARDS & PORTFOLIO --- */
@@ -156,8 +155,9 @@ footer {
 /* --- 7. DESKTOP OPTIMIERUNG --- */
 @media screen and (min-width: 769px) {
     /* Desktop Anker-Sprungpunkt */
+    h1:target, h2:target, p:target, div:target,
     h1[id], h2[id], p[id], div[id] {
-        scroll-margin-top: 480px; 
+        scroll-margin-top: 480px !important; 
     }
 
     .hero-img { height: 400px; }
