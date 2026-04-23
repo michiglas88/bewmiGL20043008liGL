@@ -97,7 +97,7 @@ main {
 
 /* Mobile Anker-Sprungpunkt */
 h1[id], h2[id], p[id], div[id] {
-    scroll-margin-top: 120px; 
+    scroll-margin-top: 120px !important; 
 }
 
 /* --- 5. CARDS & PORTFOLIO --- */
