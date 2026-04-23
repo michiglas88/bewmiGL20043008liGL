@@ -11,9 +11,13 @@
     padding: 0; 
 }
 
-body, html {
+html {
+    scroll-behavior: smooth;
+}
+
+body {
     width: 100%;
-    overflow-x: hidden;
+    /* WICHTIG: Kein overflow-x: hidden hier, sonst bricht Sticky am Desktop */
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
@@ -27,14 +31,25 @@ body, html {
     word-break: break-word;
 }
 
-/* --- 2. HEADER & BILDER --- */
+/* Fix für Anker-Links */
+h1[id], h2[id], p[id] {
+    scroll-margin-top: 140px; 
+}
+
+/* --- 2. HEADER & BILDER (DER FIX) --- */
 header {
     width: 100%;
     background: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: block; /* Garantiert volle Breite */
 }
 
 .hero-img {
-    width: 100vw;
+    width: 100%; /* Volle Breite */
     height: 250px; 
     object-fit: cover;
     display: block;
@@ -42,72 +57,46 @@ header {
 
 .triple-head {
     display: flex;
-    gap: 5px;
+    width: 100%;
+    gap: 2px;
     background: white;
 }
 
 .triple-head img {
-    width: 33.33%;
-    height: 180px;
+    flex: 1;
+    height: 120px;
     object-fit: cover;
+    display: block;
 }
 
-/* --- 3. NAVIGATION & FOOTER --- */
-nav, footer {
+/* --- 3. NAVIGATION --- */
+nav {
     background-color: var(--bg-beige) !important;
     width: 100%;
-    padding: 20px 0;
-}
-
-footer {
-    margin-top: 50px;
-    border-top: 1px solid #e0e0d0;
-}
-
-.footer-container {
-    padding: 0 20px;
-    width: 100%;
-    text-align: center;
+    padding: 10px 0;
 }
 
 .nav-links {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; 
+    overflow-x: auto;
     list-style: none;
     align-items: center;
-    padding: 0;
-    width: 100%;
-    margin: 0;
+    padding: 5px 15px;
+    gap: 10px;
 }
 
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    align-items: flex-start;
-    padding: 0;
-    width: 100%;
-    margin: 0;
-}
+.nav-links::-webkit-scrollbar { display: none; }
 
-.nav-links a, .footer-links a {
+.nav-links a {
     text-decoration: none;
-    color: black;
+    color: black !important; /* Verhindert blaues "Zurückfallen" */
     font-weight: bold;
-    padding: 15px;
-    width: 100%;
-    transition: 0.3s ease;
-}
-
-.nav-links a { text-align: center; }
-.footer-links a { text-align: left; padding: 10px 0; }
-
-.footer-copy {
-    text-align: left;
-    margin-top: 20px;
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 20px;
+    white-space: nowrap;
     font-size: 0.85rem;
-    color: #666;
-    width: 100%;
 }
 
 /* --- 4. CONTENT BEREICH --- */
@@ -115,122 +104,105 @@ main {
     padding: 40px 20px;
     background: white;
     min-height: 400px;
+    position: relative;
+    z-index: 1;
 }
 
 h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
 h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
 
-/* --- 5. PORTFOLIO GALERIE (MOBILE FIRST) --- */
+/* --- 5. PORTFOLIO & CARDS --- */
 .gallery {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: scroll !important;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
     gap: 30px;
-    padding: 20px 10% !important;
-    width: 100% !important;
+    padding: 20px 0;
 }
 
-.gallery::-webkit-scrollbar { display: none; }
-
 .card {
-    flex: 0 0 85% !important;
-    min-width: 80vw !important;
-    max-width: 500px !important;
-    scroll-snap-align: center;
+    flex: 0 0 85%;
+    min-width: 280px;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 15px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
-/* OPTIMIERTE BILDER FÜR MOBILE */
 .card img {
     width: 100% !important;
     height: 230px !important;
-    object-fit: contain !important; /* Kein Beschnitt */
-    padding: 15px; /* Abstand zum Rand */
-    background-color: #fcfcfc; /* Dezentes Passepartout */
-    border-bottom: 1px solid #f0f0f0;
-    display: block;
+    object-fit: contain !important;
+    padding: 15px;
+    background-color: #fcfcfc;
 }
 
-.card-body {
+/* --- 6. GEHALTSVORSTELLUNG --- */
+.salary-box {
+    background: #fcfcfc;
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    max-width: 500px;
+}
+
+.btn-salary {
+    background-color: var(--accent-orange);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.result-container {
+    margin-top: 30px;
     padding: 20px;
-    background: white;
+    border-left: 5px solid var(--accent-orange);
+    background: #fffdf5;
 }
 
-.card-body h3 { margin-bottom: 10px; font-size: 1.2rem; color: #111; }
-.card-body p { font-size: 0.95rem; color: #555; line-height: 1.5; }
+/* --- 7. FOOTER --- */
+footer {
+    background-color: var(--bg-beige) !important;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
 
-/* --- 6. DESKTOP OPTIMIERUNG --- */
+.footer-links { list-style: none; }
+.footer-links a { text-decoration: none; color: black; font-weight: bold; }
+
+/* --- 8. DESKTOP OPTIMIERUNG --- */
 @media screen and (min-width: 769px) {
-    header { position: sticky; top: 0; z-index: 100; }
     .hero-img { height: 400px; }
-    .triple-head img { height: 300px; }
+    .triple-head img { height: 250px; }
+
+    header {
+        top: 0; /* Bleibt am Desktop komplett stehen */
+    }
 
     .nav-links {
-        flex-direction: row !important;
-        justify-content: space-between;
-        max-width: 1000px;
-        margin: 0 auto;
-        width: 100%;
+        justify-content: center;
+        padding: 10px 0;
     }
 
-    .nav-links a { width: auto !important; padding: 10px 20px !important; }
-    
-    .footer-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 0 !important;
-        display: block;
+    .nav-links a {
+        background: transparent;
+        font-size: 1rem;
     }
 
-    .footer-links {
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        width: 100% !important;
-        margin-bottom: 20px;
+    main { 
+        padding: 60px 18%; 
+        max-width: 1400px; 
+        margin: 0 auto; 
     }
-
-    .footer-links a { width: auto !important; padding: 10px 20px !important; }
-
-    .footer-copy {
-        text-align: center !important;
-        margin-top: 20px;
-        border-top: 1px solid rgba(0,0,0,0.05);
-        padding-top: 20px;
-    }
-
-    main { padding: 60px 18%; max-width: 1400px; margin: 0 auto; }
 
     .gallery {
-        display: grid !important; 
+        display: grid !important;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        overflow-x: visible !important;
-        gap: 30px;
-        padding: 40px 0 !important;
-        -webkit-mask-image: none !important;
-        mask-image: none !important;
     }
 
-    .card {
-        flex: none !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-    }
-
-    /* OPTIMIERTE BILDER FÜR DESKTOP */
-    .card img {
-        height: 280px !important; /* Etwas größer am PC */
-        padding: 20px;
-    }
+    .card { flex: none; }
 }
