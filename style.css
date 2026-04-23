@@ -52,7 +52,7 @@ header {
     object-fit: cover;
 }
 
-/* --- 3. NAVIGATION & FOOTER (Das beige Band) --- */
+/* --- 3. NAVIGATION & FOOTER --- */
 nav, footer {
     background-color: var(--bg-beige) !important;
     width: 100%;
@@ -72,7 +72,7 @@ footer {
 
 .nav-links {
     display: flex;
-    flex-direction: column; /* Mobile: untereinander */
+    flex-direction: column;
     list-style: none;
     align-items: center;
     padding: 0;
@@ -82,7 +82,7 @@ footer {
 
 .footer-links {
     display: flex;
-    flex-direction: column; /* Mobile: untereinander */
+    flex-direction: column;
     list-style: none;
     align-items: flex-start;
     padding: 0;
@@ -118,10 +118,9 @@ main {
 }
 
 h1 { font-weight: 300; font-size: 1.8rem; margin-bottom: 25px; }
-
 h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
 
-/* --- 5. PORTFOLIO GALERIE (SWIPE-LOGIK FÜR MOBILE) --- */
+/* --- 5. PORTFOLIO GALERIE (MOBILE FIRST) --- */
 .gallery {
     display: flex !important;
     flex-direction: row !important;
@@ -129,20 +128,14 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
     overflow-x: scroll !important;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-
     gap: 30px;
     padding: 20px 10% !important;
     width: 100% !important;
 }
 
-.gallery::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-}
+.gallery::-webkit-scrollbar { display: none; }
 
 .card {
     flex: 0 0 85% !important;
@@ -158,10 +151,14 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
+/* OPTIMIERTE BILDER FÜR MOBILE */
 .card img {
     width: 100% !important;
     height: 230px !important;
-    object-fit: cover;
+    object-fit: contain !important; /* Kein Beschnitt */
+    padding: 15px; /* Abstand zum Rand */
+    background-color: #fcfcfc; /* Dezentes Passepartout */
+    border-bottom: 1px solid #f0f0f0;
     display: block;
 }
 
@@ -170,23 +167,12 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
     background: white;
 }
 
-.card-body h3 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    color: #111;
-}
+.card-body h3 { margin-bottom: 10px; font-size: 1.2rem; color: #111; }
+.card-body p { font-size: 0.95rem; color: #555; line-height: 1.5; }
 
-.card-body p {
-    font-size: 0.95rem;
-    color: #555;
-    line-height: 1.5;
-}
-
-/* --- 6. DESKTOP OPTIMIERUNG (PC / GROSSE BILDSCHIRME) --- */
+/* --- 6. DESKTOP OPTIMIERUNG --- */
 @media screen and (min-width: 769px) {
-    
     header { position: sticky; top: 0; z-index: 100; }
-    
     .hero-img { height: 400px; }
     .triple-head img { height: 300px; }
 
@@ -198,10 +184,7 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
         width: 100%;
     }
 
-    .nav-links a {
-        width: auto !important;
-        padding: 10px 20px !important;
-    }
+    .nav-links a { width: auto !important; padding: 10px 20px !important; }
     
     .footer-container {
         max-width: 1000px;
@@ -218,31 +201,20 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
         margin-bottom: 20px;
     }
 
-    .footer-links a {
-        width: auto !important;
-        padding: 10px 20px !important;
-        text-align: center !important;
-    }
+    .footer-links a { width: auto !important; padding: 10px 20px !important; }
 
     .footer-copy {
         text-align: center !important;
         margin-top: 20px;
         border-top: 1px solid rgba(0,0,0,0.05);
         padding-top: 20px;
-        width: 100% !important;
     }
 
-    main {
-        padding: 60px 18%;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
+    main { padding: 60px 18%; max-width: 1400px; margin: 0 auto; }
 
     .gallery {
         display: grid !important; 
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        grid-auto-flow: row;
-        flex-wrap: wrap !important; 
         overflow-x: visible !important;
         gap: 30px;
         padding: 40px 0 !important;
@@ -254,5 +226,11 @@ h2 { font-weight: 700; font-size: 1.2rem; margin-bottom: 25px; }
         flex: none !important;
         min-width: 0 !important;
         max-width: 100% !important;
+    }
+
+    /* OPTIMIERTE BILDER FÜR DESKTOP */
+    .card img {
+        height: 280px !important; /* Etwas größer am PC */
+        padding: 20px;
     }
 }
