@@ -91,7 +91,7 @@ main {
 }
 
 h1[id], h2[id], p[id], div[id] {
-    scroll-margin-top: 320px; 
+    scroll-margin-top: 130px; 
 }
 
 /* --- 4. CARDS & PORTFOLIO --- */
