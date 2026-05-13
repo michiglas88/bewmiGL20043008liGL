@@ -11,12 +11,11 @@
     padding: 0; 
 }
 
-/* Der wichtigste Fix gegen den Zoom: html und body dürfen NIEMALS breiter als der Screen sein */
 html, body {
     width: 100%;
     overflow-x: hidden; 
     position: relative;
-    -webkit-text-size-adjust: 100%; /* Verhindert autom. Text-Zoom auf iOS */
+    -webkit-text-size-adjust: 100%;
 }
 
 html {
@@ -30,6 +29,7 @@ body {
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
+    background-color: white;
 }
 
 /* --- 2. HEADER & STICKY LOGIK --- */
@@ -93,7 +93,7 @@ main {
     flex: 1;
     padding: 40px 20px;
     width: 100%;
-    max-width: 100%; /* Verhindert das Ausbrechen des Contents */
+    max-width: 100%;
 }
 
 /* Mobile Anker-Puffer */
@@ -101,22 +101,22 @@ h1:target, h2:target, p:target, div:target, [id] {
     scroll-margin-top: 160px !important;
 }
 
-/* --- 5. PORTFOLIO (DER ENTSCHEIDENDE FIX) --- */
+/* --- 5. PORTFOLIO CARDS --- */
 .gallery {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto; /* Erlaubt horizontales Wischen */
+    overflow-x: auto;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; /* Flüssiges Scrollen auf iOS */
+    -webkit-overflow-scrolling: touch;
     gap: 20px;
     padding: 20px 0;
-    width: 100%; /* Bleibt im Container */
-    scroll-snap-type: x mandatory; /* Macht das Wischen "einrastend" */
+    width: 100%;
+    scroll-snap-type: x mandatory;
 }
 
 .card {
-    flex: 0 0 80%; /* Karte ist 80% breit, Rest ist Vorschau */
-    scroll-snap-align: center; /* Rastet in der Mitte ein */
+    flex: 0 0 80%;
+    scroll-snap-align: center;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 15px;
@@ -152,7 +152,7 @@ footer {
     font-weight: bold;
 }
 
-/* --- 7. TABLET & DESKTOP (Größer als 768px) --- */
+/* --- 7. TABLET & DESKTOP --- */
 @media screen and (min-width: 769px) {
     .hero-img { height: 400px; }
     .triple-head img { height: 250px; }
@@ -169,7 +169,6 @@ footer {
 
     .nav-links { justify-content: center; }
 
-    /* Umschalten von Wischen auf Gitter-Ansicht */
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -183,5 +182,76 @@ footer {
         flex-direction: row;
         justify-content: center;
         gap: 50px;
+    }
+}
+
+/* --- 8. PRINT OPTIMIERUNG (DER "PDF-LOOK") --- */
+    @media print {
+    /* 1. Alles ausblenden, was nicht zum Dokument gehört */
+    header, nav, footer, .footer-container, .hero-img, .no-print, .nav-links, .triple-head {
+        display: none !important;
+    }
+
+    /* 2. Seitenränder definieren */
+    @page {
+        size: A4;
+        margin: 25mm 20mm 20mm 20mm; /* Oben 25mm für Folgeseiten */
+    }
+
+    /* Die erste Seite darf etwas weiter oben anfangen */
+    @page :first {
+        margin-top: 15mm;
+    }
+
+    /* 3. Layout-Reset */
+    body {
+        display: block !important;
+        background: white !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 11pt; /* Optimale Lesegröße für Druck */
+    }
+
+    main {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 4. Typografie & Abstände wie im PDF */
+    h1 {
+        text-align: center;
+        font-size: 24pt;
+        margin-bottom: 20pt;
+        border-bottom: 2px solid #333;
+        padding-bottom: 10pt;
+    }
+
+    h2 {
+        font-size: 16pt;
+        margin-top: 25pt;
+        margin-bottom: 12pt;
+        border-left: 5px solid #ffa500; /* Der orange Akzent */
+        padding-left: 10pt;
+    }
+
+    .text-lebenslauf {
+        text-align: justify;
+        hyphens: auto;
+        margin-bottom: 15pt;
+    }
+
+    /* Verhindert, dass eine Überschrift allein am Seitenende steht */
+    h2 { page-break-after: avoid; }
+    
+    /* Verhindert das Zerschneiden von Berufsstationen */
+    p { page-break-inside: avoid; }
+
+    /* Links neutral halten */
+    a {
+        text-decoration: none !important;
+        color: black !important;
     }
 }
