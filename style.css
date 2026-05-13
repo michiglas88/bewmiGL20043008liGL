@@ -1,22 +1,22 @@
-/* --- 1. BASIS & VARIABLEN --- */
+/* --- 1. BASIS & ABSOLUTE STABILITÄT --- */
 :root {
     --primary-font: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --bg-beige: #f5f5dc;
     --accent-orange: rgba(255, 165, 0, 0.8);
 }
 
-/* Hard-Reset gegen das Zoom-Problem */
 * { 
     box-sizing: border-box; 
     margin: 0; 
     padding: 0; 
 }
 
+/* Der wichtigste Fix gegen den Zoom: html und body dürfen NIEMALS breiter als der Screen sein */
 html, body {
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden; /* Verhindert das seitliche Ausbrechen der Seite */
+    overflow-x: hidden; 
     position: relative;
+    -webkit-text-size-adjust: 100%; /* Verhindert autom. Text-Zoom auf iOS */
 }
 
 html {
@@ -24,13 +24,12 @@ html {
 }
 
 body {
-    display: flex; /* Wechsel von Grid auf Flex für stabilere Mobile-Kontrolle */
+    display: flex;
     flex-direction: column;
     min-height: 100vh;
     font-family: var(--primary-font);
     line-height: 1.6;
     color: #333;
-    background-color: white;
 }
 
 /* --- 2. HEADER & STICKY LOGIK --- */
@@ -61,10 +60,9 @@ header {
     min-width: 0;
     height: 120px;
     object-fit: cover;
-    display: block;
 }
 
-/* --- 3. NAVIGATION (FIX FÜR ZOOM) --- */
+/* --- 3. NAVIGATION --- */
 nav {
     background-color: var(--bg-beige) !important;
     width: 100%;
@@ -73,7 +71,6 @@ nav {
 
 .nav-links {
     display: flex;
-    flex-direction: row; 
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     list-style: none;
@@ -91,58 +88,54 @@ nav {
     white-space: nowrap;
 }
 
-/* --- 4. MAIN & ANKER-FIX (MOBILE) --- */
+/* --- 4. MAIN & ANKER --- */
 main {
-    flex: 1; /* Füllt den Raum zwischen Header und Footer */
+    flex: 1;
     padding: 40px 20px;
-    background: white;
     width: 100%;
+    max-width: 100%; /* Verhindert das Ausbrechen des Contents */
 }
 
-h1:target, h2:target, p:target, div:target,
-h1[id], h2[id], p[id], div[id] {
+/* Mobile Anker-Puffer */
+h1:target, h2:target, p:target, div:target, [id] {
     scroll-margin-top: 160px !important;
 }
 
-/* --- 5. PORTFOLIO CARDS (STABILER SWIPE) --- */
+/* --- 5. PORTFOLIO (DER ENTSCHEIDENDE FIX) --- */
 .gallery {
     display: flex;
-    flex-wrap: nowrap; /* Zwingt die Karten in eine Reihe */
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Erlaubt horizontales Wischen */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Flüssiges Scrollen auf iOS */
     gap: 20px;
     padding: 20px 0;
-    width: 100%;
-    /* Verhindert, dass die Gallery das Layout sprengt */
-    max-width: 100%; 
+    width: 100%; /* Bleibt im Container */
+    scroll-snap-type: x mandatory; /* Macht das Wischen "einrastend" */
 }
 
-.gallery::-webkit-scrollbar { display: none; }
-
 .card {
-    flex: 0 0 85%; /* Karte nimmt 85% Breite ein */
+    flex: 0 0 80%; /* Karte ist 80% breit, Rest ist Vorschau */
+    scroll-snap-align: center; /* Rastet in der Mitte ein */
     background: #fff;
     border: 1px solid #eee;
     border-radius: 15px;
-    overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .card img {
     width: 100%;
-    height: 230px;
+    height: 200px;
     object-fit: contain;
     padding: 15px;
-    background-color: #fcfcfc;
 }
 
-.card-body { padding: 20px 25px; }
+.card-body { padding: 20px; }
 
 /* --- 6. FOOTER --- */
 footer {
     background-color: var(--bg-beige) !important;
     padding: 30px 20px;
-    border-top: 1px solid #e0e0d0;
     text-align: center;
 }
 
@@ -159,38 +152,33 @@ footer {
     font-weight: bold;
 }
 
-/* --- 7. DESKTOP & TABLET LANDSCAPE (Ab 769px) --- */
+/* --- 7. TABLET & DESKTOP (Größer als 768px) --- */
 @media screen and (min-width: 769px) {
     .hero-img { height: 400px; }
     .triple-head img { height: 250px; }
 
-    /* Desktop Anker */
-    h1:target, h2:target, p:target, div:target,
-    h1[id], h2[id], p[id], div[id] {
+    h1:target, h2:target, p:target, div:target, [id] {
         scroll-margin-top: 480px !important; 
     }
 
     main { 
-        padding: 60px 5%; 
         max-width: 1200px; 
         margin: 0 auto;
+        padding: 60px 5%;
     }
 
-    .nav-links { 
-        justify-content: center; 
-        overflow: visible; 
-    }
+    .nav-links { justify-content: center; }
 
-    /* Umschalten auf Grid für Desktop/Tablet Landscape */
+    /* Umschalten von Wischen auf Gitter-Ansicht */
     .gallery {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         overflow: visible;
+        scroll-snap-type: none;
     }
 
     .card { flex: none; width: 100%; }
 
-    footer { padding: 20px 0; }
     .footer-links {
         flex-direction: row;
         justify-content: center;
