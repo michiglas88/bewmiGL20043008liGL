@@ -89,17 +89,15 @@ nav {
     white-space: nowrap;
 }
 
-/* --- 4. MAIN & ANKER-FIX --- */
+/* --- 4. MAIN & ANKER-FIX (MOBILE) --- */
 main {
     padding: 40px 20px;
     background: white;
 }
 
-:target {
-    scroll-margin-top: 160px !important;
-}
-
-[id] {
+/* Präziser Sprungpunkt für Mobile */
+h1:target, h2:target, p:target, div:target,
+h1[id], h2[id], p[id], div[id] {
     scroll-margin-top: 160px !important;
 }
 
@@ -151,119 +149,48 @@ footer {
     font-weight: bold;
 }
 
+/* --- 7. TABLET OPTIMIERUNG (min 481px bis 768px) --- */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .hero-img { 
+        height: 320px; 
+    }
 
-/* ============================================================
-   TABLET — PORTRAIT (z.B. iPad 768px–1024px, hochkant)
-   Schmalere Darstellung: 2-spaltig, kompaktere Hero-Bilder
-   ============================================================ */
-@media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
+    .triple-head img { 
+        height: 180px; 
+    }
 
-    .hero-img { height: 320px; }
-
-    .triple-head img { height: 180px; }
-
-    nav { padding: 12px 0; }
+    /* Angepasster Sprungpunkt für Tablet-Header */
+    h1:target, h2:target, p:target, div:target,
+    h1[id], h2[id], p[id], div[id] {
+        scroll-margin-top: 220px !important;
+    }
 
     .nav-links {
-        justify-content: flex-start;
-        overflow-x: auto;
-        gap: 24px;
-        padding: 5px 20px;
-    }
-
-    .nav-links a { font-size: 1rem; }
-
-    main {
-        padding: 50px 4%;
-    }
-
-    :target,
-    [id] {
-        scroll-margin-top: 180px !important;
+        justify-content: center;
     }
 
     .gallery {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr);
-        overflow-x: visible;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Zwei Karten nebeneinander */
         gap: 20px;
-    }
-
-    .card {
-        flex: none;
-    }
-
-    .card img { height: 200px; }
-
-    footer { padding: 25px 20px; }
-
-    .footer-links {
-        flex-direction: row;
-        justify-content: center;
-        gap: 30px;
-    }
-}
-
-
-/* ============================================================
-   TABLET — LANDSCAPE (z.B. iPad quer, 1024px–1180px)
-   Breitere Darstellung: 3-spaltig, größere Hero-Bilder,
-   Nav zentriert wie Desktop
-   ============================================================ */
-@media screen and (min-width: 600px) and (max-width: 1180px) and (orientation: landscape) {
-
-    .hero-img { height: 370px; }
-
-    .triple-head img { height: 220px; }
-
-    nav { padding: 10px 0; }
-
-    .nav-links {
-        justify-content: center;
         overflow: visible;
-        gap: 30px;
-        padding: 5px 30px;
-    }
-
-    .nav-links a { font-size: 0.95rem; }
-
-    main {
-        padding: 55px 5%;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    :target,
-    [id] {
-        scroll-margin-top: 200px !important;
-    }
-
-    .gallery {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr);
-        overflow-x: visible;
-        gap: 25px;
     }
 
     .card {
         flex: none;
+        width: 100%;
     }
-
-    .card img { height: 210px; }
-
-    footer { padding: 20px 0; }
 
     .footer-links {
         flex-direction: row;
         justify-content: center;
-        gap: 40px;
+        gap: 30px;
     }
 }
 
-
-/* --- 7. DESKTOP OPTIMIERUNG (ab 1025px, ohne Tablet-Landscape-Überschneidung) --- */
-@media screen and (min-width: 1025px) {
-
+/* --- 8. DESKTOP OPTIMIERUNG (ab 769px) --- */
+@media screen and (min-width: 769px) {
+    /* Hoher Sprungpunkt für großen Desktop-Header */
     h1:target, h2:target, p:target, div:target,
     h1[id], h2[id], p[id], div[id] {
         scroll-margin-top: 480px !important; 
@@ -291,6 +218,7 @@ footer {
     .card { flex: none; }
 
     footer { padding: 20px 0; }
+    
     .footer-links {
         flex-direction: row;
         justify-content: center;
