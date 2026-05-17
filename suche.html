@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bewerbung - Suche & Gehalt</title>
     <link rel="stylesheet" href="style.css?v=201">
+    <style>
+        /* Kleine Zusatz-Optimierung für die untereinanderstehenden Checkboxen */
+        .salary-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        .salary-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 1.05rem;
+        }
+        .salary-row input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .btn-salary {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,26 +50,26 @@
     <p>…nach der Möglichkeit zur Fortbildung und Weiterentwicklung.</p>
     <p>…nach einem langfristigen und sicheren Arbeitsplatz mit angemessener Bezahlung und guter Work-Life-Balance.</p>
     <br>
-    <p>Für mich ist es wichtig, dass es zwischen mir und den Menschen mit den ich zusammenarbeite nicht nur auf fachlicher, sondern auch auf menschlicher Basis passt. Grundsätzlich bin ich auch für Jobs in Deutschland offen. Aber da sich mein Lebensmittelpunkt in Tirol befindet und nicht von dort weg bewegen wird, sind Jobs in Deutschland nur mit Remote oder Hybrid Lösungen möglich.</p>
+    <p>Für mich ist es wichtig, dass es zwischen mir und den Menschen mit den ich zusammenarbeite nicht nur auf fachlicher, sondern auch auf menschlicher Basis passt. Grundsätzlich bin ich auch für Jobs in Deutschland offen. Aber da sich mein Lebensmittelpunkt in Tirol befindet und nicht von dort weg bewegen wird, sind Jobs in Deutschland nur mit Remote oder Hybrid Lösungen möglich.</p>
     <br>
-    <p>So sehr ich meinen Beruf liebe, für den ich mich als junger Mann entscheiden habe und so gerne ich auch wieder in diesem Beruf arbeiten möchte. Ich bin auch ein offener und neugieriger Mensch. Seitdem ich vor 23 Jahren diesen Beruf gewählt habe, hat sich vieles in der Welt geändert und ich bin für diese und alle zukünftigen Veränderungen offen. Ich will damit sagen, wenn Sie mir heute einen ganz anderen Job anbieten würden, wir uns menschlich gut verstehen und mich der Job reitzt. Dann haben wir ein Match!</p>
+    <p>So sehr ich meinen Beruf liebe, für den ich mich als junger Mann entscheiden habe und so gerne ich auch wieder in diesem Beruf arbeiten möchte. Ich bin auch ein offener und neugieriger Mensch. Seitdem ich vor 23 Jahren diesen Beruf gewählt habe, hat sich vieles in der Welt geändert und ich bin für diese und alle zukünftigen Veränderungen offen. Ich will damit sagen, wenn Sie mir heute einen ganz anderen Job anbieten würden, wir uns menschlich gut verstehen und mich der Job reizt. Dann haben wir ein Match!</p>
     <br>
     <h1 id="gehalt">Gehaltsvorstellung</h1>
     <p>Der Wert den ich hier als Gehaltsvorstellung bekannt gebe, ist ein Wert mit dem ich mich wohlfühlen würde. Da ich aber offen für verschiedene Jobs bin und nicht auf einen bestimmten Jobtitel mit einer festen Jobbeschreibung festgelegt bin. Möchte ich Sie bitten diesen Wert als Ausgangspunkt zu sehen über den man reden kann, wenn besprochen wir um welche Aufgaben und Verantwortungen es tatsächlich geht.</p>
-    <p>Ich hoffe sie verstehen was ich damit ausdrücken möchte. Grundsätzlich finde ich sollte die Bezahlung immer dem entsprechen was man leistet und wfür man Verantwortung übernimmt. Sollten Sie Fragen dazu haben, kontaktieren Sie mich geren.</p>
-    <p>Ich hoffe, ich konnte Sie von meinen menschlichen und fachlichen Qualitäten überzeugen. Ich freue mich auf ein baldiges Bewerbungsgespräch, in dem wir uns auf fachlicher und menschlicher Basis kennenlernen.</p>
+    <p>Ich hoffe sie verstehen was ich damit ausdrücken möchte. Grundsätzlich finde ich sollte die Bezahlung immer dem entsprechen was man leistet und wfür man Verantwortung übernimmt. Sollten Sie Fragen dazu haben, kontaktieren Sie mich gerne.</p>
+    <p>Ich hoffe, ich konnte Sie von meinen menschlichen und fachlichen Qualitäten überzeugen. Ich freue mich auf ein baldiges Bewerbungsgespräch, in dem wir uns auf fachlicher und menschlicher Basis kennenlernen.</p>
     <br>
-    <p>Um die länderspezifischen Unterschiede (12 vs. 14 Gehälter) zu berücksichtigen, wählen Sie bitte das gewünschte Land aus:</p>
+    <p>Um die länderspezifischen Unterschiede bei der Auszahlung zu berücksichtigen, wählen Sie bitte das gewünschte Land aus:</p>
 
     <div class="salary-box">
-        <label class="container">Österreich (14 Gehälter)
+        <label class="salary-row">
             <input type="radio" name="country" value="at" id="check-at">
-            <span class="checkmark"></span>
+            <span>Österreich (Auszahlung auf 14 Gehälter)</span>
         </label>
         
-        <label class="container">Deutschland (12 Gehälter)
+        <label class="salary-row">
             <input type="radio" name="country" value="de" id="check-de">
-            <span class="checkmark"></span>
+            <span>Deutschland (Auszahlung auf 12 Gehälter)</span>
         </label>
 
         <button type="button" class="btn-salary" onclick="showSalary()">Gehalt anzeigen</button>
@@ -52,7 +77,7 @@
 
     <div id="salary-result" class="result-container" style="display: none;">
         <h2 id="salary-value"></h2>
-        <p id="salary-note" style="font-style: italic; color: #666;"></p>
+        <p id="salary-note" style="font-style: italic; color: #666; margin-top: 10px; line-height: 1.5;"></p>
     </div>
 </main>
 
@@ -72,6 +97,7 @@
         </div>
     </div>
 </footer>
+
 <script>
 function showSalary() {
     const isAt = document.getElementById('check-at').checked;
@@ -87,12 +113,13 @@ function showSalary() {
 
     resultDiv.style.display = "block";
 
+    // Einheitlicher Nettolohn
+    valueText.innerText = "Gehaltswunsch: ca. 34.500 € – 37.500 € (Netto/Jahr)";
+
     if (isAt) {
-        valueText.innerText = "Gehaltswunsch Österreich: 45.000 € – 47.000 € (Brutto/Jahr)";
-        noteText.innerText = "Basierend auf 14 Monatsgehältern.";
+        noteText.innerText = "Aufgeteilt auf 14 Auszahlungen (inkl. Urlaubs- und Weihnachtsgeld gemäß österreichischem Modell). Die Angabe in Netto wurde gewählt, um eine transparente Verhandlungsbasis auf Augenhöhe zu schaffen.";
     } else if (isDe) {
-        valueText.innerText = "Gehaltswunsch Deutschland: 55.000 € – 62.000 € (Brutto/Jahr)";
-        noteText.innerText = "Hinweis: Der höhere Bruttowert ergibt sich aus dem abweichenden Gehaltsmodell in Deutschland (in der Regel 12 Gehälter) sowie den unterschiedlichen Lohnnebenkosten und Lebenshaltungskosten im Vergleich zu Österreich.";
+        noteText.innerText = "Aufgeteilt auf 12 Auszahlungen. Hinweis für Arbeitgeber in Deutschland: Bitte berücksichtigen Sie bei der Kalkulation des Brutto-Jahresgehalts das abweichende deutsche Gehaltssystem (in der Regel 12 statt 14 Gehälter) sowie die steuerlichen Zusatzabzüge und Sozialabgaben im Vergleich zu Österreich, um dieses Netto-Zielvolumen darzustellen.";
     }
 }
 </script>
