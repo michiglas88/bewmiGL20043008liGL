@@ -88,12 +88,84 @@ nav {
     white-space: nowrap;
 }
 
-/* --- 4. MAIN & ANKER --- */
+/* --- 4. MAIN & ANKER (STARTSEITEN OPTIMIERUNG) --- */
 main {
     flex: 1;
     padding: 40px 20px;
     width: 100%;
     max-width: 100%;
+}
+
+/* Überschriften auf der Website zentriert lassen */
+main h1 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.intro-lead {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Flex-Container für Porträt und die Datenblöcke */
+.profile-flex-container {
+    display: flex;
+    flex-direction: column; /* Standard auf Mobilgeräten: untereinander */
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.portrait-box {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto; /* Zentriert das Bild auf Smartphones */
+}
+
+.portrait-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.personal-data-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.data-block h2 {
+    font-size: 1.3rem;
+    color: #222;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+}
+
+.data-block p {
+    margin-bottom: 6px;
+}
+
+.data-block a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.data-block a:hover {
+    text-decoration: underline;
+}
+
+/* KI Hinweis Box unten (wieder volle Breite) */
+.ki-hinweis-box {
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee; ;
+    font-size: 0.85rem;
+    line-height: 1.5;
 }
 
 /* Mobile Anker-Puffer */
@@ -152,7 +224,7 @@ footer {
     font-weight: bold;
 }
 
-/* --- 7. TABLET & DESKTOP --- */
+/* --- 7. TABLET & DESKTOP MEDIAGRID --- */
 @media screen and (min-width: 769px) {
     .hero-img { height: 400px; }
     .triple-head img { height: 250px; }
@@ -165,6 +237,18 @@ footer {
         max-width: 1200px; 
         margin: 0 auto;
         padding: 60px 5%;
+    }
+
+    /* Ab hier rücken Bild und Daten nebeneinander */
+    .profile-flex-container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 50px;
+    }
+
+    .portrait-box {
+        flex: 0 0 350px;
+        margin: 0;
     }
 
     .nav-links { justify-content: center; }
@@ -186,31 +270,27 @@ footer {
 }
 
 /* --- 8. PRINT OPTIMIERUNG (DER "PDF-LOOK") --- */
-    @media print {
-    /* 1. Alles ausblenden, was nicht zum Dokument gehört */
+@media print {
     header, nav, footer, .footer-container, .hero-img, .no-print, .nav-links, .triple-head {
         display: none !important;
     }
 
-    /* 2. Seitenränder definieren */
     @page {
         size: A4;
-        margin: 25mm 20mm 20mm 20mm; /* Oben 25mm für Folgeseiten */
+        margin: 25mm 20mm 20mm 20mm;
     }
 
-    /* Die erste Seite darf etwas weiter oben anfangen */
     @page :first {
         margin-top: 15mm;
     }
 
-    /* 3. Layout-Reset */
     body {
         display: block !important;
         background: white !important;
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        font-size: 11pt; /* Optimale Lesegröße für Druck */
+        font-size: 11pt;
     }
 
     main {
@@ -220,7 +300,6 @@ footer {
         padding: 0 !important;
     }
 
-    /* 4. Typografie & Abstände wie im PDF */
     h1 {
         text-align: center;
         font-size: 24pt;
@@ -233,8 +312,9 @@ footer {
         font-size: 16pt;
         margin-top: 25pt;
         margin-bottom: 12pt;
-        border-left: 5px solid #ffa500; /* Der orange Akzent */
+        border-left: 5px solid #ffa500;
         padding-left: 10pt;
+        text-align: left !important; /* Im Druck linksbündig mit Linie */
     }
 
     .text-lebenslauf {
@@ -243,13 +323,9 @@ footer {
         margin-bottom: 15pt;
     }
 
-    /* Verhindert, dass eine Überschrift allein am Seitenende steht */
     h2 { page-break-after: avoid; }
-    
-    /* Verhindert das Zerschneiden von Berufsstationen */
     p { page-break-inside: avoid; }
 
-    /* Links neutral halten */
     a {
         text-decoration: none !important;
         color: black !important;
